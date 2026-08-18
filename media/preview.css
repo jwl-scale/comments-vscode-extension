@@ -1,0 +1,115 @@
+body {
+  color: var(--vscode-foreground);
+  font-family: var(--vscode-font-family);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 12px 28px 120px;
+  max-width: 880px;
+}
+code {
+  background: var(--vscode-textCodeBlock-background);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.9em;
+}
+pre {
+  background: var(--vscode-textCodeBlock-background);
+  padding: 12px;
+  border-radius: 6px;
+  overflow: auto;
+}
+pre code { background: none; padding: 0; }
+blockquote {
+  border-left: 3px solid var(--vscode-panel-border);
+  margin-left: 0;
+  padding-left: 14px;
+  color: var(--vscode-descriptionForeground);
+}
+a { color: var(--vscode-textLink-foreground); }
+table { border-collapse: collapse; }
+th, td { border: 1px solid var(--vscode-panel-border); padding: 4px 10px; }
+
+mark.cmt-highlight {
+  background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 22%, transparent);
+  color: inherit;
+  border-bottom: 1.5px dotted var(--vscode-editorWarning-foreground);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.cmt-block-highlight {
+  background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 10%, transparent);
+  border-left: 3px solid var(--vscode-editorWarning-foreground);
+  padding-left: 8px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+#comment-fab {
+  position: absolute;
+  z-index: 20;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 14px;
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.cmt-popover {
+  position: absolute;
+  z-index: 30;
+  width: 380px;
+  max-width: calc(100vw - 48px);
+  background: var(--vscode-editorWidget-background);
+  border: 1px solid var(--vscode-editorWidget-border, var(--vscode-panel-border));
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  font-size: 13px;
+}
+.cmt-popover .head {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--vscode-panel-border);
+  font-size: 11px;
+  color: var(--vscode-descriptionForeground);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cmt-popover .head .x { cursor: pointer; padding: 0 4px; }
+.cmt-popover .comment { padding: 8px 12px; border-bottom: 1px solid var(--vscode-panel-border); }
+.cmt-popover .comment:last-of-type { border-bottom: none; }
+.cmt-popover .who { font-weight: 600; font-size: 12px; }
+.cmt-popover .who span { color: var(--vscode-descriptionForeground); font-weight: 400; font-size: 11px; margin-left: 6px; }
+.cmt-popover .body { margin-top: 2px; white-space: pre-wrap; word-break: break-word; }
+.cmt-popover .replyrow { padding: 8px 12px; border-top: 1px solid var(--vscode-panel-border); }
+.cmt-popover textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, var(--vscode-panel-border));
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+  min-height: 52px;
+}
+.cmt-popover .actions { display: flex; gap: 8px; margin-top: 8px; }
+.cmt-popover button {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 3px;
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.cmt-popover button.ghost {
+  background: transparent;
+  border: 1px solid var(--vscode-panel-border);
+  color: var(--vscode-foreground);
+}
