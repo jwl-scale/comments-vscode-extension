@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b3244"/>
+      <stop offset="100%" stop-color="#181d27"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+
+  <!-- comment bubble -->
+  <rect x="20" y="20" width="88" height="54" rx="12" fill="#f4f6fa"/>
+  <path d="M40 74 L40 92 L58 74 Z" fill="#f4f6fa"/>
+  <rect x="33" y="36" width="62" height="7" rx="3.5" fill="#98a2b8"/>
+  <rect x="33" y="51" width="40" height="7" rx="3.5" fill="#c3cad8"/>
+
+  <!-- the anchored line of code: the highlighted span sits under the tail -->
+  <rect x="20" y="100" width="18" height="8" rx="4" fill="#4b5468"/>
+  <rect x="43" y="100" width="34" height="8" rx="4" fill="#ff9f43"/>
+  <rect x="82" y="100" width="26" height="8" rx="4" fill="#4b5468"/>
+</svg>

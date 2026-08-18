@@ -1,0 +1,514 @@
+{
+  "name": "anchored-comments",
+  "displayName": "Comments — anchored threads for code & agents",
+  "description": "Anchored comment threads on any file, with file:line deeplinks and agent conversation graphs (Claude Code, Codex). Persisted as committable sidecar files, with verified provenance for agent-authored commits.",
+  "version": "1.0.1",
+  "publisher": "jonathan-lee",
+  "license": "Apache-2.0",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jwl-scale/comments-vscode-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jwl-scale/comments-vscode-extension/issues"
+  },
+  "homepage": "https://github.com/jwl-scale/comments-vscode-extension#readme",
+  "galleryBanner": {
+    "color": "#1f2430",
+    "theme": "dark"
+  },
+  "keywords": [
+    "comments",
+    "code review",
+    "annotations",
+    "ai agents",
+    "provenance"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "AI",
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mdComments.addComment",
+        "title": "Comments: Add Comment on Selection"
+      },
+      {
+        "command": "mdComments.createComment",
+        "title": "Comment",
+        "enablement": "!commentIsEmpty"
+      },
+      {
+        "command": "mdComments.resolveThread",
+        "title": "Resolve",
+        "icon": "$(check)"
+      },
+      {
+        "command": "mdComments.unresolveThread",
+        "title": "Unresolve",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "mdComments.deleteThread",
+        "title": "Delete Thread",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "mdComments.deleteComment",
+        "title": "Delete",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "mdComments.editComment",
+        "title": "Edit",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "mdComments.saveComment",
+        "title": "Save"
+      },
+      {
+        "command": "mdComments.cancelEditComment",
+        "title": "Cancel"
+      },
+      {
+        "command": "mdComments.attachAgentSession",
+        "title": "Attach Agent Session…",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "mdComments.openFileLink",
+        "title": "Comments: Open File Link"
+      },
+      {
+        "command": "mdComments.openConversation",
+        "title": "Comments: Open Agent Conversation"
+      },
+      {
+        "command": "mdComments.openPreview",
+        "title": "Comments: Open Markdown Preview (commentable)",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "mdComments.reattachThread",
+        "title": "Re-anchor to Selection",
+        "icon": "$(pin)"
+      },
+      {
+        "command": "mdComments.copyRef",
+        "title": "Comments: Copy file:line Reference"
+      },
+      {
+        "command": "mdComments.lineHistory",
+        "title": "Comments: Line History (threads & conversations)"
+      },
+      {
+        "command": "mdComments.revealThread",
+        "title": "Comments: Reveal Thread"
+      },
+      {
+        "command": "mdComments.refreshTree",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "mdComments.toggleResolvedInTree",
+        "title": "Toggle Resolved Threads",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "mdComments.installSkill",
+        "title": "Comments: Install Agent Skill (comment-cycle)"
+      },
+      {
+        "command": "mdComments.copyMcpSetup",
+        "title": "Comments: Copy MCP Setup Command"
+      },
+      {
+        "command": "mdComments.expandAllComments",
+        "title": "Comments: Expand All Comments in File"
+      },
+      {
+        "command": "mdComments.collapseAllComments",
+        "title": "Comments: Collapse All Comments in File"
+      },
+      {
+        "command": "mdComments.toggleThreadAtCursor",
+        "title": "Comments: Toggle Comment at Cursor"
+      },
+      {
+        "command": "mdComments.migrateSidecars",
+        "title": "Comments: Migrate Sidecars to v2 (event logs)"
+      },
+      {
+        "command": "mdComments.verifyMcpSetup",
+        "title": "Comments: Verify MCP Setup"
+      },
+      {
+        "command": "mdComments.assignToAgent",
+        "title": "Assign to Agent",
+        "icon": "$(play)"
+      },
+      {
+        "command": "mdComments.configureAssignToAgent",
+        "title": "Assign to Agent (Configure Run…)",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "mdComments.askAgentFollowUp",
+        "title": "Ask Agent (Follow-up…)",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "mdComments.showThreadSessions",
+        "title": "Sessions…",
+        "icon": "$(versions)"
+      },
+      {
+        "command": "mdComments.copyThreadRef",
+        "title": "Copy Thread Reference"
+      },
+      {
+        "command": "mdComments.copyCommentRef",
+        "title": "Copy Reference",
+        "icon": "$(link)"
+      },
+      {
+        "command": "mdComments.acceptSuggestion",
+        "title": "Accept Suggestion (apply to working tree)",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "mdComments.acceptAndLand",
+        "title": "Accept & Land",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "mdComments.dispatchFleet",
+        "title": "Comments: Dispatch Fleet (agents on open threads)…"
+      },
+      {
+        "command": "mdComments.rejectSuggestion",
+        "title": "Reject Suggestion",
+        "icon": "$(close)"
+      },
+      {
+        "command": "mdComments.toggleBlocking",
+        "title": "Toggle Blocking Severity",
+        "icon": "$(circle-slash)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "mdComments.addComment",
+          "when": "editorHasSelection",
+          "group": "mdComments@1"
+        },
+        {
+          "command": "mdComments.copyRef",
+          "group": "mdComments@2"
+        },
+        {
+          "command": "mdComments.lineHistory",
+          "group": "mdComments@3"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "mdComments.openPreview",
+          "when": "editorLangId == markdown",
+          "group": "navigation@100"
+        }
+      ],
+      "comments/commentThread/context": [
+        {
+          "command": "mdComments.createComment",
+          "group": "inline"
+        }
+      ],
+      "comments/commentThread/title": [
+        {
+          "command": "mdComments.reattachThread",
+          "group": "inline@0",
+          "when": "commentThread =~ /Orphaned/"
+        },
+        {
+          "command": "mdComments.acceptAndLand",
+          "group": "inline@1",
+          "when": "commentThread =~ /Suggestion/"
+        },
+        {
+          "command": "mdComments.acceptSuggestion",
+          "group": "inline@1",
+          "when": "commentThread =~ /Suggestion/"
+        },
+        {
+          "command": "mdComments.rejectSuggestion",
+          "group": "inline@1",
+          "when": "commentThread =~ /Suggestion/"
+        },
+        {
+          "command": "mdComments.assignToAgent",
+          "group": "inline@1",
+          "when": "commentThread =~ /^mdOpen/"
+        },
+        {
+          "command": "mdComments.configureAssignToAgent",
+          "group": "inline@1",
+          "when": "commentThread =~ /^mdOpen/"
+        },
+        {
+          "command": "mdComments.askAgentFollowUp",
+          "group": "inline@1",
+          "when": "commentThread =~ /^mdOpen/"
+        },
+        {
+          "command": "mdComments.showThreadSessions",
+          "group": "inline@2",
+          "when": "commentThread =~ /^md/"
+        },
+        {
+          "command": "mdComments.attachAgentSession",
+          "group": "inline@1"
+        },
+        {
+          "command": "mdComments.toggleBlocking",
+          "group": "inline@2"
+        },
+        {
+          "command": "mdComments.resolveThread",
+          "group": "inline@2",
+          "when": "commentThread =~ /^mdOpen/"
+        },
+        {
+          "command": "mdComments.unresolveThread",
+          "group": "inline@2",
+          "when": "commentThread =~ /^mdResolved/"
+        },
+        {
+          "command": "mdComments.deleteThread",
+          "group": "inline@3"
+        },
+        {
+          "command": "mdComments.copyThreadRef",
+          "group": "1_refs@1"
+        }
+      ],
+      "comments/comment/title": [
+        {
+          "command": "mdComments.copyCommentRef",
+          "group": "inline@0",
+          "when": "comment == mdComment"
+        },
+        {
+          "command": "mdComments.editComment",
+          "group": "inline@1",
+          "when": "comment == mdComment"
+        },
+        {
+          "command": "mdComments.deleteComment",
+          "group": "inline@2",
+          "when": "comment == mdComment"
+        }
+      ],
+      "comments/comment/context": [
+        {
+          "command": "mdComments.saveComment",
+          "group": "inline@1",
+          "when": "comment == mdComment"
+        },
+        {
+          "command": "mdComments.cancelEditComment",
+          "group": "inline@2",
+          "when": "comment == mdComment"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "mdComments.refreshTree",
+          "when": "view == mdCommentsThreads",
+          "group": "navigation@1"
+        },
+        {
+          "command": "mdComments.toggleResolvedInTree",
+          "when": "view == mdCommentsThreads",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Comments",
+      "properties": {
+        "mdComments.authorName": {
+          "type": "string",
+          "default": "",
+          "description": "Author name for new comments. Defaults to your OS username."
+        },
+        "mdComments.agent.provider": {
+          "type": "string",
+          "enum": [
+            "claude",
+            "codex"
+          ],
+          "default": "claude",
+          "description": "Which coding agent 'Assign to Agent' dispatches. Both read and write the same comment threads; they differ in how sessions are recorded and how provenance is verified."
+        },
+        "mdComments.agent.command": {
+          "type": "string",
+          "default": "",
+          "description": "Executable for headless agent runs. Empty means the provider default ('claude' or 'codex'). Point at a wrapper script to customize flags."
+        },
+        "mdComments.claudeCommand": {
+          "type": "string",
+          "default": "",
+          "markdownDeprecationMessage": "Use `#mdComments.agent.command#` instead. Still honored when the new setting is empty.",
+          "description": "Deprecated alias for mdComments.agent.command."
+        },
+        "mdComments.agent.model": {
+          "type": "string",
+          "default": "",
+          "description": "Default model for agent runs (empty = CLI default). E.g. sonnet, opus, haiku, or a full model id."
+        },
+        "mdComments.agent.permissionMode": {
+          "type": "string",
+          "enum": ["default", "acceptEdits", "plan", "bypassPermissions"],
+          "default": "default",
+          "description": "Default permission mode for agent runs. 'default' keeps runs suggest-only."
+        },
+        "mdComments.agent.allowedTools": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Default tool allowlist for agent runs (empty = the comments MCP toolset)."
+        },
+        "mdComments.agent.appendSystemPrompt": {
+          "type": "string",
+          "default": "",
+          "description": "Text appended to the system prompt of every agent run (on top of any agent definition)."
+        },
+        "mdComments.agent.systemPrompt": {
+          "type": "string",
+          "default": "",
+          "description": "Replaces the base system prompt of agent runs (--system-prompt). Agent definitions and append text still stack on top."
+        },
+        "mdComments.agent.effort": {
+          "type": "string",
+          "enum": ["", "low", "medium", "high"],
+          "default": "",
+          "description": "Reasoning effort for agent runs (--effort). Only applied when your claude CLI supports it."
+        },
+        "mdComments.agent.maxTurns": {
+          "type": "number",
+          "default": 0,
+          "description": "Max agent turns per run (0 = unlimited)."
+        },
+        "mdComments.agent.extraArgs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Extra CLI arguments appended to agent runs (escape hatch for effort, betas, future flags)."
+        },
+        "mdComments.graphOrientation": {
+          "type": "string",
+          "enum": [
+            "vertical",
+            "horizontal"
+          ],
+          "default": "vertical",
+          "description": "Default orientation of the conversation graph: vertical spine or horizontal timeline."
+        },
+        "mdComments.conversationView": {
+          "type": "string",
+          "enum": [
+            "graph",
+            "linear"
+          ],
+          "default": "graph",
+          "description": "Default view when opening an agent conversation: graph or linear scrolling transcript."
+        }
+      }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "mdCommentsThreads",
+          "name": "Comments",
+          "icon": "$(comment-discussion)",
+          "contextualTitle": "Comment Threads"
+        },
+        {
+          "id": "mdCommentsAgentSessions",
+          "name": "Agent Sessions",
+          "icon": "$(pulse)",
+          "contextualTitle": "Working Agent Sessions"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "mdComments.addComment",
+        "key": "ctrl+alt+m",
+        "mac": "cmd+alt+m",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "mdComments.copyRef",
+        "key": "ctrl+alt+l",
+        "mac": "cmd+alt+l",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "mdComments.expandAllComments",
+        "key": "ctrl+alt+=",
+        "mac": "cmd+alt+=",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "mdComments.collapseAllComments",
+        "key": "ctrl+alt+-",
+        "mac": "cmd+alt+-",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "mdComments.toggleThreadAtCursor",
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "bundle": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "test": "tsc -p ./ && node --test tests/*.test.js",
+    "test:integration": "npm run bundle && node tests/integration/runTests.js",
+    "test:ui": "npm run bundle && playwright test",
+    "test:all": "npm test && npm run test:integration && npm run test:ui",
+    "vscode:prepublish": "npm run bundle"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^3.1.0",
+    "esbuild": "^0.21.0",
+    "mocha": "^10.4.0",
+    "typescript": "^5.4.0"
+  }
+}
