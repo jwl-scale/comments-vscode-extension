@@ -1,0 +1,28 @@
+# --- never ship: sources, tests, tooling ---
+src/**
+out/**
+tests/**
+node_modules/**
+.vscode/**
+.vscode-test/**
+.github/**
+test-results/**
+playwright-report/**
+playwright.config.js
+tsconfig.json
+**/*.map
+
+# --- never ship: repo-local development context ---
+CLAUDE.md
+docs/**
+scripts/**
+.gitignore
+.gitattributes
+.comments/**
+.claude/**
+*.vsix
+
+# --- never ship: icon source (the rendered PNG ships) ---
+media/icon.svg
+
+# skills/ IS shipped: "Comments: Install Agent Skill" copies from it.
