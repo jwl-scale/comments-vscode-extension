@@ -1,0 +1,5 @@
+{"type":"user","timestamp":"2026-07-01T00:00:00Z","uuid":"m1","parentUuid":null,"message":{"role":"user","content":"Fix the retry bug"}}
+{"type":"assistant","timestamp":"2026-07-01T00:01:00Z","uuid":"m2","parentUuid":"m1","message":{"role":"assistant","content":[{"type":"text","text":"Using full jitter."}]}}
+{"type":"assistant","timestamp":"2026-07-01T00:02:00Z","uuid":"m3","parentUuid":"m2","message":{"role":"assistant","content":[{"type":"text","text":"Patch drafted with full jitter"}]}}
+{"type":"user","timestamp":"2026-07-01T00:03:00Z","uuid":"m4","parentUuid":"m1","message":{"role":"user","content":"Actually use decorrelated jitter"}}
+{"type":"assistant","timestamp":"2026-07-01T00:04:00Z","uuid":"m5","parentUuid":"m4","message":{"role":"assistant","content":[{"type":"text","text":"Decorrelated jitter it is."}]}}
